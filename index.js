@@ -71,4 +71,54 @@ module.exports = class NodeUtils {
   static uniq = (data) => {
     return data.filter((v, i, a) => a.indexOf(v) === i);
   }
+
+  static timeStamp = (date = null) => {
+    let currentDate = new Date();
+    if (date) {
+      currentDate = new Date(date);
+    }
+
+    let timestamp = currentDate.getTime();
+    return timestamp;
+  }
+
+  static getUUID = () => {
+    let timestamp = this.timeStamp();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      let r = Math.random() * 16;
+      r = ((timestamp + r) % 16) | 0;
+      timestamp = Math.floor(timestamp / 16);
+      return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+    });
+  };
+
+  static getClass = (field) => {
+    return field?.constructor?.name;
+  }
+
+  static stripObject = (input) => {
+    for (let key in input) {
+      if (!this.present(input[key])) {
+        delete input[key]
+      }
+    }
+    return input;
+  }
+
+  static toString(value, minDigit = 0) {
+    if(minDigit > value.toString().length) {
+      let count = minDigit - value.toString().length
+      return Array.from({ length: count }, () => 0).join('') + value.toString();
+    } else {
+      return value.toString();
+    }
+  }
+
+  static encodeBase64 = (value) => {
+    return Buffer.from(value).toString('base64');
+  }
+
+  static decodeBase64 = (value) => {
+    return Buffer.from(value, 'base64').toString();
+  }
 }
