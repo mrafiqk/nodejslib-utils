@@ -1,16 +1,16 @@
 const { parse } = require('csv-parse/sync');
 const { Buffer } = require('buffer');
 
-module.exports = class NodeUtils {
-  static clone = (obj) =>{
+class NodeUtils {
+  clone = (obj) =>{
     return JSON.parse(JSON.stringify(obj))
   }
 
-  static flatten = (arrays) => {
+  flatten = (arrays) => {
     return arrays.flat(Infinity);
   }
 
-  static present = (data) => {
+  present = (data) => {
     let type = (typeof data)
     switch(type) {
       case 'object':
@@ -25,7 +25,7 @@ module.exports = class NodeUtils {
     }
   }
 
-  static indexBy = (array, key) =>  {
+  indexBy = (array, key) =>  {
     let returnValue = {};
     for(let item of array) {
       if(returnValue[item[key]]) {
@@ -37,7 +37,7 @@ module.exports = class NodeUtils {
     return returnValue;
   }
 
-  static only = (object, keys) => {
+  only = (object, keys) => {
     let returnValue = {}
     keys.forEach(key => {
       if(object[key]?.toString()) {
@@ -47,7 +47,7 @@ module.exports = class NodeUtils {
     return returnValue;
   }
 
-  static except = (object, keys) => {
+  except = (object, keys) => {
     let returnValue = NodeUtils.clone(object)
     keys.forEach(key => {
       if(keys.includes(key)) {
@@ -57,23 +57,23 @@ module.exports = class NodeUtils {
     return returnValue
   }
 
-  static pluck = (array, key) => {
+  pluck = (array, key) => {
     return array.map(data => data[key])
   }
 
-  static compact = (array) => {
+  compact = (array) => {
     return array.filter(data => NodeUtils.present(data))
   }
 
-  static parseCSV = (csv_content, { delimeter = ',', isHeader = false }) => {
+  parseCSV = (csv_content, { delimeter = ',', isHeader = false }) => {
     return parse(csv_content, { delimiter: delimeter, columns: isHeader, trim: true })
   }
 
-  static uniq = (data) => {
+  uniq = (data) => {
     return data.filter((v, i, a) => a.indexOf(v) === i);
   }
 
-  static timeStamp = (date = null) => {
+  timeStamp = (date = null) => {
     let currentDate = new Date();
     if (date) {
       currentDate = new Date(date);
@@ -83,7 +83,7 @@ module.exports = class NodeUtils {
     return timestamp;
   }
 
-  static getUUID = () => {
+  getUUID = () => {
     let timestamp = this.timeStamp();
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       let r = Math.random() * 16;
@@ -93,11 +93,11 @@ module.exports = class NodeUtils {
     });
   };
 
-  static getClass = (field) => {
+  getClass = (field) => {
     return field?.constructor?.name;
   }
 
-  static stripObject = (input) => {
+  stripObject = (input) => {
     for (let key in input) {
       if (!this.present(input[key])) {
         delete input[key]
@@ -106,7 +106,7 @@ module.exports = class NodeUtils {
     return input;
   }
 
-  static toString(value, minDigit = 0) {
+  toString(value, minDigit = 0) {
     if(minDigit > value.toString().length) {
       let count = minDigit - value.toString().length
       return Array.from({ length: count }, () => 0).join('') + value.toString();
@@ -115,15 +115,15 @@ module.exports = class NodeUtils {
     }
   }
 
-  static encodeBase64 = (value) => {
+  encodeBase64 = (value) => {
     return Buffer.from(value).toString('base64');
   }
 
-  static decodeBase64 = (value) => {
+  decodeBase64 = (value) => {
     return Buffer.from(value, 'base64').toString();
   }
 
-  static sleep = (seconds) => {
+  sleep = (seconds) => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(true)
@@ -131,3 +131,5 @@ module.exports = class NodeUtils {
     })
   }
 }
+
+module.exports = { NodeUtils }
