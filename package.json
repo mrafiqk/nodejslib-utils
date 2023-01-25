@@ -1,6 +1,6 @@
 {
   "name": "nodejslib-utils",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "index.js",
   "dependencies": {
@@ -12,5 +12,8 @@
     "build": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
   },
   "author": "mrafiqk",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.18"
+  }
 }
