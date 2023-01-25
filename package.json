@@ -1,12 +1,12 @@
 {
   "name": "nodejslib-utils",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "buffer": "^6.0.3",
     "csv-parse": "^5.3.1"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

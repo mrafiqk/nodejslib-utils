@@ -1,4 +1,5 @@
 const { parse } = require('csv-parse/sync');
+const { Buffer } = require('buffer');
 
 module.exports = class NodeUtils {
   static clone = (obj) =>{
@@ -120,5 +121,13 @@ module.exports = class NodeUtils {
 
   static decodeBase64 = (value) => {
     return Buffer.from(value, 'base64').toString();
+  }
+
+  static sleep = (seconds) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true)
+      }, (seconds * 1000))
+    })
   }
 }
