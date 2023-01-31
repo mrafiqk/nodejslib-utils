@@ -1,5 +1,6 @@
 const { parse } = require('csv-parse/sync');
 const { Buffer } = require('buffer');
+const FormData = require('form-data');
 
 class NodeUtils {
   clone = (obj) =>{
@@ -130,6 +131,25 @@ class NodeUtils {
       }, (seconds * 1000))
     })
   }
+  toFormData(payload) {
+		let formData = new FormData();
+		for (let key in payload) {
+			if ( payload[key] instanceof FileList || (payload[key].constructor.name == 'Array' && payload[key][0].constructor.name == 'File' ) ) {
+				for (let file of payload[key]) {
+					formData.append(key, file, file.name);
+				}
+			} else {
+				let value;
+				if(['Array','Object'].includes(payload[key].constructor.name)){
+					value = [key].concat(JSON.stringify(payload[key]))
+				}else{
+					value = [key].concat(payload[key])
+				}
+				formData.append.apply(formData, value);
+			}
+		}
+		return formData;
+	}
 }
 
 module.exports = { NodeUtils }
