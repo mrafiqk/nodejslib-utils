@@ -20,4 +20,5 @@ export class NodeUtils {
     encodeBase64: (value: any) => any;
     decodeBase64: (value: any) => any;
     sleep: (seconds: any) => any;
+    toFormData(payload: any): any;
 }
