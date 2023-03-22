@@ -49,7 +49,7 @@ class NodeUtils {
   }
 
   except = (object, keys) => {
-    let returnValue = NodeUtils.clone(object)
+    let returnValue = this.clone(object)
     keys.forEach(key => {
       if(keys.includes(key)) {
         delete returnValue[key]
@@ -63,7 +63,7 @@ class NodeUtils {
   }
 
   compact = (array) => {
-    return array.filter(data => NodeUtils.present(data))
+    return array.filter(data => this.present(data))
   }
 
   parseCSV = (csv_content, { delimeter = ',', isHeader = false }) => {
