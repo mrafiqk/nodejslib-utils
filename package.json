@@ -1,6 +1,6 @@
 {
   "name": "nodejslib-utils",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "",
   "main": "index.js",
   "dependencies": {
@@ -15,6 +15,6 @@
   "author": "mrafiqk",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^18.11.18"
+    "@types/node": "^20.19.9"
   }
 }

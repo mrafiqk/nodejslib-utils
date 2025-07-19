@@ -17,8 +17,9 @@ export class NodeUtils {
     getClass: (field: any) => any;
     stripObject: (input: any) => any;
     toString(value: any, minDigit?: number): any;
-    encodeBase64: (value: any) => any;
-    decodeBase64: (value: any) => any;
-    sleep: (seconds: any) => any;
-    toFormData(payload: any): any;
+    encodeBase64: (value: any) => string;
+    decodeBase64: (value: any) => string;
+    sleep: (seconds: any) => Promise<any>;
+    toFormData(payload: any): FormData;
 }
+import FormData = require("form-data");

@@ -12,18 +12,36 @@ class NodeUtils {
   }
 
   present = (data) => {
-    let type = (typeof data)
-    switch(type) {
-      case 'object':
-        return (Array.isArray(data) ? data : Object.keys(data || {})).length > 0;
-        break;
-      case 'number':
-        return data.toString() ? true : false;
-        break;
-      default:
-        return data ? true : false;
-        break;
-    }
+    if (data === null || data === undefined) return false;
+
+    // Date
+    if (data instanceof Date) return !isNaN(data.getTime());
+
+    // Array
+    if (Array.isArray(data)) return data.length > 0;
+
+    // Buffer
+    if (Buffer.isBuffer(data)) return data.length > 0;
+
+    // String
+    if (typeof data === 'string') return data.trim().length > 0;
+
+    // Number
+    if (typeof data === 'number') return !isNaN(data);
+
+    // Boolean
+    if (typeof data === 'boolean') return true;
+
+    // Object (not null, not array, not buffer)
+    if (typeof data === 'object') return Object.keys(data).length > 0;
+
+    // Symbol
+    if (typeof data === 'symbol') return true;
+
+    // Function
+    if (typeof data === 'function') return true;
+
+    return false;
   }
 
   indexBy = (array, key) =>  {
